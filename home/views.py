@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse
 from home.models import Contact
+from home.models import Register
+from home.models import Login
 from django.views.decorators.csrf import csrf_exempt
-from paytm import Checksum
+# from paytm import Checksum
 MERCHANT_KEY = 'Jx%JSQa!#@%dEVtJ'
 
 # Create your views here.
@@ -23,9 +25,35 @@ def contact(request):
         ins = Contact(name=name, email=email, message=message)
         ins.save()
         print("The data has been written to the db")
-    
-    # return HttpResponse("This is my contactpage (/contact)")
+
     return render(request, 'contact.html')
+
+def register(request):
+    if request.method=='POST':
+        # print("This is post")
+        name = request.POST['name']
+        # lastname = request.POST['lastname']
+        email = request.POST['email']
+        # subject = request.POST['subject']
+        phone = request.POST['phone']
+        # print(name, email, message)
+        ins = Register(name=name, email=email, phone=phone)
+        ins.save()
+        print("The data has been written to the db")
+
+    return render(request, 'register.html')
+
+def login(request):
+    
+    if request.method=='POST':
+        email = request.POST['email']
+        phone = request.POST['phone']
+        ins = Login(email=email, phone=phone)
+        ins.save()
+        print("The data has been written to the db")
+    return render(request, 'login.html')
+
+
     param_dict = {
         'MID': 'ToRYSY87407031138273',
         'ORDER_ID': '',
@@ -39,8 +67,8 @@ def contact(request):
     param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict)
     return render(request, 'blackkart/paytm.html', {'param_dict': param_dict})
 
-def register(request):
-    return render(request, 'register.html')
+
+
 @csrf_exempt
 def handlerequest(request):
     return HttpResponse('done')
