@@ -25,5 +25,6 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('login', views.login, name='login'),
     path('handlerequest', views.handlerequest, name='handleRequest'),
+    # path('paytm', views.paytm, name='paytm'),
 
 ]

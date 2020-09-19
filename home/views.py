@@ -1,10 +1,17 @@
+
+
 from django.shortcuts import render, HttpResponse
 from home.models import Contact
 from home.models import Register
 from home.models import Login
+import json
 from django.views.decorators.csrf import csrf_exempt
-# from paytm import Checksum
-MERCHANT_KEY = 'Jx%JSQa!#@%dEVtJ'
+# from PayTm import Checksum
+# Create your views here.
+from django.http import HttpResponse
+# MERCHANT_KEY = 'SccIiPAcPEh_B69G'
+
+
 
 # Create your views here.
 def home(request):
@@ -54,18 +61,7 @@ def login(request):
     return render(request, 'login.html')
 
 
-    param_dict = {
-        'MID': 'ToRYSY87407031138273',
-        'ORDER_ID': '',
-        'TXN_AMOUNT': str(amount),
-        'CUST_ID': 'email',
-        'INDUSTRY_TYPE_ID': 'Retail',
-        'WEBSITE': 'WEBSTAGING',
-        'CHANNEL_ID': 'WEB',
-        'CALLBACK_URL': 'http://127.0.0.1:8000.blackkart/handlerequest/',
-    }
-    param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict)
-    return render(request, 'blackkart/paytm.html', {'param_dict': param_dict})
+  
 
 
 
